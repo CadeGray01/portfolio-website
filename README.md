@@ -96,4 +96,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Contact
 
-For questions or suggestions, please reach out through the contact form on the website or directly at hello@cade-gray.com. 
+For questions or suggestions, please reach out through the contact form on the website or directly at graycade01@gmail.com
+
+## Context Information
+- LinkedIn profile: www.linkedin.com/in/cade-gray-0b289a303
+- GitHub profile: CadeGray01
+- Email: graycade01@gmail.com
