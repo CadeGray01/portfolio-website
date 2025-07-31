@@ -221,18 +221,36 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form">
+                <!-- Formspree Form - Sends to inquiries@cadegray.us -->
+                <form class="contact-form" action="https://formspree.io/f/manbbavj" method="POST">
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                        <input type="text" name="name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
+
+                <!-- Option 2: Send to custom domain email (uncomment if you prefer this) -->
+                <!--
+                <form class="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT" method="POST">
+                    <input type="hidden" name="_replyto" value="inquiries@cadegray.us">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                -->
             </div>
         </div>
     </section>
