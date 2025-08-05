@@ -39,28 +39,42 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Contact form handling with Formspree
+// Contact form handling with direct email
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            // Let the form submit normally to Formspree
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
+            e.preventDefault(); // Prevent default form submission
             
-            // Show processing message
-            showNotification('Sending your message...', 'info');
+            // Get form data
+            const name = contactForm.querySelector('input[name="name"]').value;
+            const email = contactForm.querySelector('input[name="email"]').value;
+            const message = contactForm.querySelector('textarea[name="message"]').value;
+            
+            // Create email content
+            const subject = encodeURIComponent('Contact Form Submission from ' + name);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Email: ${email}\n\n` +
+                `Message:\n${message}\n\n` +
+                `---\nSent from cadegray.us contact form`
+            );
+            
+            // Create mailto link
+            const mailtoLink = `mailto:inquiries@cadegray.us?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            showNotification('Opening your email client to send the message...', 'success');
+            
+            // Reset form after a delay
+            setTimeout(() => {
+                contactForm.reset();
+            }, 1000);
         });
-        
-        // Handle form submission result
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('success') === 'true') {
-            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-            // Clear the URL parameter
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
     }
 });
 
