@@ -39,58 +39,48 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Contact form handling
+// Contact form handling with Formspree
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Let the form submit normally to Formspree
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
             
-            // Get form data
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Create email content
-            const subject = 'Portfolio Contact - cadegray.us';
-            const emailBody = `Hello Cade,
-
-I'm reaching out from your portfolio website.
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
-Best regards,
-${name}`;
-            
-            // Create mailto link with all the data
-            const mailtoLink = `mailto:inquiries@cadegray.us?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-            
-            // Open email client
-            window.open(mailtoLink);
-            
-            // Show success message
-            showNotification('Email client opened! Please send the email to complete your message.');
-            
-            // Reset form
-            contactForm.reset();
+            // Show processing message
+            showNotification('Sending your message...', 'info');
         });
+        
+        // Handle form submission result
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+            // Clear the URL parameter
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     }
 });
 
 // Notification function
-function showNotification(message) {
+function showNotification(message, type = 'default') {
     // Create notification element
     const notification = document.createElement('div');
+    
+    const colors = {
+        default: '#667eea',
+        success: '#10b981',
+        info: '#3b82f6',
+        error: '#ef4444'
+    };
+    
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: #667eea;
+        background: ${colors[type] || colors.default};
         color: white;
         padding: 1rem 2rem;
         border-radius: 10px;
